@@ -42,7 +42,7 @@ def genVertexColourMaps(VD):
 			colDict.update({v[1]: 1})
 	return colDict
 
-def drawDessin(f):
+def drawDessin(f, save=False):
 	if(type(f) != sage.symbolic.expression.Expression):
 		print("[ERROR] have not passed a symbolic expression!")
 		return 0
@@ -59,7 +59,7 @@ def drawDessin(f):
 	################
 	# PLT SETUP
 	################
-	fig, ax = plt.subplots()
+	fig, ax = plt.subplots(figsize=(14.8, 10.5))
 	pos = nx.spectral_layout(dessin)
 
 	################
@@ -99,6 +99,16 @@ def drawDessin(f):
 
 	nx.draw_networkx_labels(dessin, pos=label_pos, ax=ax)
 
+
+	################
+	# FINAL DRAWING
+	################
+
+	fLatex = str(latex(f))
+	plt.title(f"Dessin d'enfant for\n$f(z) = {fLatex}$")
+	if save == True:
+		fileName = f"dessin_plot.png"
+		plt.savefig(fileName)
 	plt.show()
 
 
